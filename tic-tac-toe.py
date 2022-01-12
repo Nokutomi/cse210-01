@@ -102,17 +102,6 @@ def main():
             9: ""
         }
     
-    # print("\033[92m" + "Some text"+"\x1b[0m")  
-    # https://stackoverflow.com/questions/287871/how-to-print-colored-text-to-the-terminal
-    # for style in range(8):
-    #     for fg in range(30,38):
-    #         s1 = ''
-    #         for bg in range(40,48):
-    #             format = ';'.join([str(style), str(fg), str(bg)])
-    #             s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
-    #         print(s1)
-    #     print('\n')
-
     print("############## Tic-Tac-Toe ###################\n")
 
     print("Welcome to the game!\n")
@@ -238,6 +227,7 @@ def show_final_result(check, game_table):
         It doesn't return anything.
     """
     for key, value in check.items():
+        # it adds green color to the correct places
         new_value = f"\033[92m{value}\x1b[0m"
         game_table[key] = new_value
     
