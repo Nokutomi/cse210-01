@@ -1,5 +1,6 @@
 # file: tic-tac-toe.py
 # author: Nathan Kutomi
+# assignment: To build a tic-tac-toe game.
 
 ANSWERS_FOR_X = [
     {
@@ -100,6 +101,7 @@ def main():
             8: "",
             9: ""
         }
+    
     # print("\033[92m" + "Some text"+"\x1b[0m")  
     # https://stackoverflow.com/questions/287871/how-to-print-colored-text-to-the-terminal
     # for style in range(8):
@@ -114,9 +116,6 @@ def main():
     print("############## Tic-Tac-Toe ###################\n")
 
     print("Welcome to the game!\n")
-
-    
-
     
     game_status = False
     which_player = False
@@ -132,7 +131,7 @@ def main():
 
         print_table(game_table)
 
-        check = check_answer(game_table, player)
+        check = check_answer(player, game_table)
         if (check == False):
             round += 1
             if round > 9:
@@ -145,6 +144,19 @@ def main():
 
 
 def get_input(player, game_table):
+    """A function to ask the user for an input for the game, with all the pertaining validations
+
+    Parameters: 
+    -----------
+    player : str
+        Either 'X' or 'O', indicating which player's turn this is.
+    game_table: dictionary
+        A dictionary containing the current state of the game.
+
+    Returns: 
+    -----------
+        It doesn't return anything, but it updates the game_table
+    """
     choice = 0
     while choice not in range(1,10):
         try:
@@ -160,7 +172,23 @@ def get_input(player, game_table):
             print(f"'{user_input}' is not a digit.")
             print("Make sure to pick a digit from 1 through 9.\n")
 
-def check_answer(game_table, player):
+def check_answer(player, game_table):
+    """It checks the current game state for a correct answer.
+    
+    Parameters: 
+    -----------
+    player : str
+        Either 'X' or 'O', indicating which player's turn this is.
+    game_table: dictionary
+        A dictionary containing the current state of the game.
+
+    Returns: 
+    -----------
+    answer : dictionary
+        The correct resolution for this turn, if there is a correct answer.
+    False : boolean
+        If there isn't a correct answer it returns False.
+    """
     ANSWERS = ANSWERS_FOR_X if (player == "X") else ANSWERS_FOR_O
     for answer in ANSWERS:
         # check if one answer dictionary is contained inside our game_table for the player
@@ -169,6 +197,17 @@ def check_answer(game_table, player):
     return False        
 
 def print_table(game_table):
+    """It prints on the console the current table for the game.
+
+    Parameters: 
+    -----------
+    game_table: dictionary
+        A dictionary containing the current state of the game.
+
+    Returns: 
+    -----------
+        It doesn't return anything.
+    """
     vals_list = []
     for key, value in game_table.items():
         val = key if (value == "") else value
@@ -184,7 +223,26 @@ def print_table(game_table):
     print(table.format(*vals_list))
 
 def show_final_result(check, game_table):
-    pass
+    """It prints on the console the current game, highlighting the winner!.
+
+    Parameters: 
+    -----------
+    check: dictionary
+        A dictionary containing the correct answer /resolution for the game.
+
+    game_table: dictionary
+        A dictionary containing the current state of the game.
+
+    Returns: 
+    -----------
+        It doesn't return anything.
+    """
+    for key, value in check.items():
+        new_value = f"\033[92m{value}\x1b[0m"
+        game_table[key] = new_value
+    
+    print_table(game_table)
+    
 
 
 if __name__ == "__main__":
